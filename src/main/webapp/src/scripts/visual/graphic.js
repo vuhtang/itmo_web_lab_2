@@ -1,7 +1,14 @@
-import drawOnCanvas from "./canvas.js";
+import {drawOnCanvas, listenUserClicks, drawCircle} from "./canvas.js";
 
-function process() {
+export function processGraphicElements() {
     drawOnCanvas()
+    listenUserClicks()
 }
 
-export const processGraphicElements  = process
+export function drawShotsFromJson(json) {
+    let resp = JSON.parse(json)
+    for (let i = 0; i < resp['shots'].length; i++) {
+        let shot = resp['shots'][i]
+        drawCircle(shot['x'], shot['y'], shot['result'])
+    }
+}

@@ -1,7 +1,8 @@
 import {consts} from "../resources/constants.js";
-import {clearHistory} from "./api-functions.js";
+import {api} from "./api-functions.js";
+import {drawOnCanvas, clearCanvas} from "./visual/canvas.js"
 
-function listenButtons() {
+export function listenButtons() {
 
     let buttons = consts.buttonsRVisible
     for (let i = 0; i < buttons.length; i++) {
@@ -13,9 +14,9 @@ function listenButtons() {
 
     consts.clearButton.addEventListener('click', function (event) {
         event.preventDefault()
-        clearHistory()
+        api.clearHistory()
+        clearCanvas()
+        drawOnCanvas()
     })
 
 }
-
-export default listenButtons

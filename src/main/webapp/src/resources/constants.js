@@ -1,6 +1,7 @@
 const constants = {
     form: document.getElementById("shot"),
     table: document.getElementsByTagName('tbody')[0],
+    canvas: document.getElementById("area-image"),
 
     //y
     coordinateY: document.getElementById("y"),

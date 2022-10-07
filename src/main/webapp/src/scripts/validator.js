@@ -1,8 +1,8 @@
 import {consts} from "../resources/constants.js";
 import {messages} from "../resources/messages.js";
-import {fetchShot} from "./api-functions.js";
+import {api} from "./api-functions.js";
 
-function bindValidation() {
+export function bindValidation() {
 
     consts.coordinatesX.forEach(elem => {
         elem.addEventListener('change', function () {
@@ -37,7 +37,7 @@ function bindValidation() {
             consts.coordinateYWarning.textContent = messages['y_warning']['en']
             return
         }
-        fetchShot(currXValue, consts.coordinateY.value, consts.currentRHidden.value)
+        api.fetchShot(currXValue, consts.coordinateY.value, consts.currentRHidden.value)
     })
 
 }
@@ -45,5 +45,3 @@ function bindValidation() {
 function isNumeric(value) {
     return !isNaN(value - parseFloat(value));
 }
-
-export default bindValidation

@@ -1,9 +1,11 @@
 import {consts} from "../resources/constants.js";
 import {BASE_URL} from "../resources/routes.js";
+import {jsonToHtmlTableRows} from "./json-to-html.js";
+import {drawShotsFromJson} from "./visual/graphic.js";
 
-const api = {
+export const api = {
 
-    fetchShot: function (x, y, r) {
+    fetchShot: function (x, y, r, callback) {
         let table = consts.table
         let url = new URL(BASE_URL)
         url.searchParams.set('x', x)
@@ -13,8 +15,13 @@ const api = {
                 method: 'GET',
                 mode: 'no-cors'
             }
-        ).then(res => res.text()
-            .then(strRes => table.insertAdjacentHTML('afterbegin', strRes)))
+        ).then(resp => resp.text()
+            .then(strResp => {
+                table.insertAdjacentHTML('afterbegin', jsonToHtmlTableRows(strResp))
+                if (callback) {
+                    callback(x, y, strResp)
+                }
+            }))
             .catch(reason => console.log("error :(( " + reason))
     },
 
@@ -26,8 +33,11 @@ const api = {
                 method: 'GET',
                 mode: 'no-cors'
             }
-        ).then(res => res.text()
-            .then(strRes => table.insertAdjacentHTML('afterbegin', strRes)))
+        ).then(resp => resp.text()
+            .then(strResp => {
+                table.insertAdjacentHTML('afterbegin', jsonToHtmlTableRows(strResp))
+                drawShotsFromJson(strResp)
+            }))
             .catch(reason => console.log('error:(( ' + reason))
     },
 
@@ -39,12 +49,8 @@ const api = {
                 method: 'GET',
                 mode: 'no-cors'
             }
-        ).then(res => res.text()
+        ).then(resp => resp.text()
             .then(() => table.innerHTML = ""))
             .catch(reason => console.log("error:(( " + reason))
     }
 }
-
-export const fetchShot = api.fetchShot
-export const requestShots = api.requestShots
-export const clearHistory = api.clearHistory

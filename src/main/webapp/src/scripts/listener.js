@@ -1,9 +1,7 @@
-import bindValidation from "./validator.js";
-import listenButtons from "./buttons.js";
+import {bindValidation} from "./validator.js";
+import {listenButtons} from "./buttons.js";
 
-function listenUserChanges() {
+export function listenUserChanges() {
     listenButtons()
     bindValidation()
 }
-
-export default listenUserChanges

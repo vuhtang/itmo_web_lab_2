@@ -21,7 +21,7 @@
             </div>
             <div class="fio-text">
                 <span class="fio-text-before">Group:</span>
-                <span class="fio-text-after">32302</span>
+                <span class="fio-text-after">P32302</span>
             </div>
         </div>
     </div>
@@ -134,5 +134,5 @@
     </div>
 </div>
 </body>
-<script type="module" src="src/scripts/index.js"></script>
+<script type="module" src="src/index.js"></script>
 </html>

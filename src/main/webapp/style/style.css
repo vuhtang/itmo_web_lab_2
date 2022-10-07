@@ -7,7 +7,7 @@ body {
 
     background: url("../images/manuls.png") no-repeat fixed center;
     background-size: cover;
-    /*animation: bg-animation 1s ease-in-out alternate infinite;*/
+    animation: bg-animation 1s ease-in-out alternate infinite;
 }
 
 @keyframes bg-animation {
@@ -62,7 +62,7 @@ header {
     margin: 0 50px;
     color: #da680c;
     font-weight: 700;
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .fio-text-before, .fio-text-after {

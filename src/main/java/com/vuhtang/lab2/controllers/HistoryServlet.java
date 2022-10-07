@@ -1,8 +1,7 @@
 package com.vuhtang.lab2.controllers;
 
 import com.vuhtang.lab2.repository.DataManagerImpl;
-import com.vuhtang.lab2.utils.Shot;
-import com.vuhtang.lab2.utils.TableTransformer;
+import com.vuhtang.lab2.utils.JSONTransformer;
 import com.vuhtang.lab2.utils.Transformer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,17 +19,15 @@ public class HistoryServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.transformer = new TableTransformer();
+        this.transformer = new JSONTransformer();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Object maybeManager = getServletContext().getAttribute("dataManager");
         if (maybeManager instanceof DataManagerImpl manager) {
-            StringBuilder responseHTML = new StringBuilder();
-            for (Shot shot : manager.getAll()) {
-                responseHTML.append(transformer.transformToHTML(shot));
-            }
+
+            String responseHTML = transformer.transform(manager.getAll());
 
             PrintWriter out = resp.getWriter();
             out.println(responseHTML);

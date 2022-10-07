@@ -1,5 +1,7 @@
 package com.vuhtang.lab2.utils;
 
+import java.util.List;
+
 public interface Transformer {
-    String transformToHTML(Shot shot);
+    String transform(List<Shot> shots);
 }

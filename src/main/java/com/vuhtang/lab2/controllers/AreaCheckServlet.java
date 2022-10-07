@@ -23,20 +23,19 @@ public class AreaCheckServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         this.shotChecker = new ShotCheckerImpl();
-        this.transformer = new TableTransformer();
+        this.transformer = new JSONTransformer();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         try {
-            int x = Integer.parseInt(req.getParameter("x"));
-            double y = Float.parseFloat(req.getParameter("y"));
+            double x = Double.parseDouble(req.getParameter("x"));
+            double y = Double.parseDouble(req.getParameter("y"));
             double r = Double.parseDouble(req.getParameter("r"));
             if (validate(x, y, r)) {
                 Shot shot = shotChecker.takeShot(x, y, r);
-                String html = transformer.transformToHTML(shot);
-
+                String html = transformer.transform(List.of(shot));
                 Object maybeManager = getServletContext().getAttribute("dataManager");
                 if (maybeManager instanceof DataManagerImpl manager) {
                     manager.add(shot);
@@ -50,9 +49,8 @@ public class AreaCheckServlet extends HttpServlet {
         }
     }
 
-    private boolean validate(int x, double y, double r) {
-        List<Integer> xPossibleValues = Arrays.asList(-4, -3, -2, -1, 0, 1, 2, 3, 4);
+    private boolean validate(double x, double y, double r) {
         List<Double> rPossibleValues = Arrays.asList(1.0, 1.5, 2.0, 2.5, 3.0);
-        return (-3 <= y && y <= 5 && xPossibleValues.contains(x) && rPossibleValues.contains(r));
+        return (rPossibleValues.contains(r) && -3 * r <= y && y <= 3 * r && x <= 3 * r && x >= -3 * r);
     }
 }

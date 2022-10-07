@@ -1,6 +1,59 @@
-function drawOnCanvas() {
+import {consts} from "../../resources/constants.js";
+import {api} from "../api-functions.js";
 
-    const canvas = document.getElementById("area-image")
+
+export function clearCanvas() {
+    consts.canvas.getContext('2d').clearRect(0, 0,
+        consts.canvas.width, consts.canvas.height)
+}
+
+export function drawCircle(x, y, strResp) {
+    const canvas = consts.canvas
+    let R = canvas.width / 3
+    let r = consts.currentRHidden.value
+    if (isNaN(x) || isNaN(y)) {
+        x = Number(x.replace(',', '.'))
+        y = Number(y.replace(',', '.'))
+    }
+    let X = Number(x) * R / r
+    let Y = Number(y) * R / r
+    if (canvas.getContext) {
+        const ctx = canvas.getContext('2d')
+        if (strResp.indexOf("HIT") >= 0) {
+            ctx.fillStyle = 'rgba(76,255,0,0.41)'
+        } else {
+            ctx.fillStyle = 'rgba(255,15,15,0.41)'
+        }
+        ctx.beginPath()
+        ctx.arc(X + canvas.offsetWidth / 2, -Y + canvas.offsetHeight / 2,
+            4, 0, 2 * Math.PI)
+        ctx.fill()
+    }
+}
+
+export function listenUserClicks() {
+
+    consts.canvas.addEventListener('click', function (event) {
+        const canvas = consts.canvas
+        const canvasCenterTop = canvas.offsetTop + canvas.offsetHeight / 2;
+        const canvasCenterLeft = canvas.offsetLeft + canvas.offsetWidth / 2;
+
+        // X, Y, R - px
+        let X = event.pageX - canvasCenterLeft
+        let Y = -(event.pageY - canvasCenterTop)
+        let R = canvas.width / 3
+
+        // x, y, r - numeric
+        let r = consts.currentRHidden.value
+        let x = X * r / R
+        let y = Y * r / R
+
+        api.fetchShot(x, y, r, drawCircle)
+    })
+}
+
+export function drawOnCanvas() {
+    const canvas = consts.canvas;
     if (canvas.getContext) {
         const ctx = canvas.getContext('2d')
         const indent = 6
@@ -87,8 +140,8 @@ function drawOnCanvas() {
             ctx.beginPath()
             ctx.moveTo(centerX, centerY)
             ctx.lineTo(centerX, centerY - R)
-            ctx.lineTo(centerX + R/2, centerY - R)
-            ctx.lineTo(centerX + R/2, centerY)
+            ctx.lineTo(centerX + R / 2, centerY - R)
+            ctx.lineTo(centerX + R / 2, centerY)
             ctx.fill()
 
             ctx.beginPath()
@@ -101,8 +154,6 @@ function drawOnCanvas() {
             ctx.moveTo(centerX, centerY)
             ctx.arc(centerX, centerY, R, 0, Math.PI / 2)
             ctx.fill()
-
-
         }
 
         drawAxes()
@@ -111,5 +162,3 @@ function drawOnCanvas() {
         drawText()
     }
 }
-
-export default drawOnCanvas;
