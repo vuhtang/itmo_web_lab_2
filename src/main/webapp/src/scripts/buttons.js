@@ -1,18 +1,18 @@
-import {consts} from "../resources/constants.js";
+import {DOMElements} from "../utils/const/DOMElements.js";
 import {api} from "./api-functions.js";
 import {drawOnCanvas, clearCanvas} from "./visual/canvas.js"
 
 export function listenButtons() {
 
-    let buttons = consts.buttonsRVisible
+    let buttons = DOMElements.buttonsRVisible
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function () {
-            consts.currentRHidden.value = buttons[i].value
-            consts.currentRVisible.textContent = buttons[i].value
+            DOMElements.currentRHidden.value = buttons[i].value
+            DOMElements.currentRVisible.textContent = buttons[i].value
         })
     }
 
-    consts.clearButton.addEventListener('click', function (event) {
+    DOMElements.clearButton.addEventListener('click', function (event) {
         event.preventDefault()
         api.clearHistory()
         clearCanvas()

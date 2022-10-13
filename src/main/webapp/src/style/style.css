@@ -5,7 +5,7 @@ body {
     line-height: 1.6;
     font-size: 17px;
 
-    background: url("../images/manuls.png") no-repeat fixed center;
+    background: url('../assets/images/manuls.png') no-repeat fixed center;
     background-size: cover;
     animation: bg-animation 1s ease-in-out alternate infinite;
 }

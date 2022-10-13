@@ -1,4 +1,4 @@
-const constants = {
+export const DOMElements = {
     form: document.getElementById("shot"),
     table: document.getElementsByTagName('tbody')[0],
     canvas: document.getElementById("area-image"),
@@ -19,5 +19,3 @@ const constants = {
     //clear
     clearButton: document.getElementById("clear")
 }
-
-export const consts = constants

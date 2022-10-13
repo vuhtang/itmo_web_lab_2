@@ -1,43 +1,43 @@
-import {consts} from "../resources/constants.js";
+import {DOMElements} from "../utils/const/DOMElements.js";
 import {messages} from "../resources/messages.js";
 import {api} from "./api-functions.js";
 
 export function bindValidation() {
 
-    consts.coordinatesX.forEach(elem => {
+    DOMElements.coordinatesX.forEach(elem => {
         elem.addEventListener('change', function () {
-            consts.coordinateXWarning.textContent = ""
+            DOMElements.coordinateXWarning.textContent = ""
         })
     })
 
-    consts.coordinateY.addEventListener("input", function () {
-        let inputValue = consts.coordinateY.value;
+    DOMElements.coordinateY.addEventListener("input", function () {
+        let inputValue = DOMElements.coordinateY.value;
         if (!isNumeric(inputValue) || inputValue < -3 || inputValue > 5) {
-            consts.coordinateYWarning.textContent = messages['y_warning']['en']
-            consts.coordinateY.yIsValid = false
+            DOMElements.coordinateYWarning.textContent = messages['y_warning']['en']
+            DOMElements.coordinateY.yIsValid = false
         } else {
-            consts.coordinateYWarning.textContent = ""
-            consts.coordinateY.yIsValid = true
+            DOMElements.coordinateYWarning.textContent = ""
+            DOMElements.coordinateY.yIsValid = true
         }
     })
 
-    consts.form.addEventListener("submit", function (event) {
+    DOMElements.form.addEventListener("submit", function (event) {
         event.preventDefault()
         let currXValue
-        consts.coordinatesX.forEach(function (obj) {
+        DOMElements.coordinatesX.forEach(function (obj) {
             if (obj.checked) {
                 currXValue = obj.value
             }
         })
         if (!currXValue) {
-            consts.coordinateXWarning.textContent = messages['x_warning']['en']
+            DOMElements.coordinateXWarning.textContent = messages['x_warning']['en']
             return
         }
-        if (!consts.coordinateY.yIsValid) {
-            consts.coordinateYWarning.textContent = messages['y_warning']['en']
+        if (!DOMElements.coordinateY.yIsValid) {
+            DOMElements.coordinateYWarning.textContent = messages['y_warning']['en']
             return
         }
-        api.fetchShot(currXValue, consts.coordinateY.value, consts.currentRHidden.value)
+        api.fetchShot(currXValue, DOMElements.coordinateY.value, DOMElements.currentRHidden.value)
     })
 
 }

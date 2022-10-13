@@ -2,6 +2,7 @@ package com.vuhtang.lab2.controllers;
 
 import com.vuhtang.lab2.repository.DataManagerImpl;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+@WebServlet(name = "ControllerServlet", urlPatterns = "/controller")
 public class ControllerServlet extends HttpServlet {
 
     @Override

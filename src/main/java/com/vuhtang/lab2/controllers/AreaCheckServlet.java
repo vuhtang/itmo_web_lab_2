@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "AreaCheckServlet")
+@WebServlet(name = "AreaCheckServlet", value = "/area")
 public class AreaCheckServlet extends HttpServlet {
     private ShotChecker shotChecker;
     private Transformer transformer;

@@ -1,16 +1,16 @@
-import {consts} from "../../resources/constants.js";
+import {DOMElements} from "../../utils/const/DOMElements.js";
 import {api} from "../api-functions.js";
 
 
 export function clearCanvas() {
-    consts.canvas.getContext('2d').clearRect(0, 0,
-        consts.canvas.width, consts.canvas.height)
+    DOMElements.canvas.getContext('2d').clearRect(0, 0,
+        DOMElements.canvas.width, DOMElements.canvas.height)
 }
 
 export function drawCircle(x, y, strResp) {
-    const canvas = consts.canvas
+    const canvas = DOMElements.canvas
     let R = canvas.width / 3
-    let r = consts.currentRHidden.value
+    let r = DOMElements.currentRHidden.value
     if (isNaN(x) || isNaN(y)) {
         x = Number(x.replace(',', '.'))
         y = Number(y.replace(',', '.'))
@@ -33,8 +33,8 @@ export function drawCircle(x, y, strResp) {
 
 export function listenUserClicks() {
 
-    consts.canvas.addEventListener('click', function (event) {
-        const canvas = consts.canvas
+    DOMElements.canvas.addEventListener('click', function (event) {
+        const canvas = DOMElements.canvas
         const canvasCenterTop = canvas.offsetTop + canvas.offsetHeight / 2;
         const canvasCenterLeft = canvas.offsetLeft + canvas.offsetWidth / 2;
 
@@ -44,7 +44,7 @@ export function listenUserClicks() {
         let R = canvas.width / 3
 
         // x, y, r - numeric
-        let r = consts.currentRHidden.value
+        let r = DOMElements.currentRHidden.value
         let x = X * r / R
         let y = Y * r / R
 
@@ -53,7 +53,7 @@ export function listenUserClicks() {
 }
 
 export function drawOnCanvas() {
-    const canvas = consts.canvas;
+    const canvas = DOMElements.canvas;
     if (canvas.getContext) {
         const ctx = canvas.getContext('2d')
         const indent = 6
