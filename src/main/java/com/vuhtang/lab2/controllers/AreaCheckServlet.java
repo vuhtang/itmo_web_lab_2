@@ -1,7 +1,7 @@
 package com.vuhtang.lab2.controllers;
 
 
-import com.vuhtang.lab2.repository.DataManagerImpl;
+import com.vuhtang.lab2.repository.DataManager;
 import com.vuhtang.lab2.utils.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,7 +37,7 @@ public class AreaCheckServlet extends HttpServlet {
                 Shot shot = shotChecker.takeShot(x, y, r);
                 String html = transformer.transform(List.of(shot));
                 Object maybeManager = getServletContext().getAttribute("dataManager");
-                if (maybeManager instanceof DataManagerImpl manager) {
+                if (maybeManager instanceof DataManager manager) {
                     manager.add(shot);
                 }
 

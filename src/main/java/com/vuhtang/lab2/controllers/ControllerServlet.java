@@ -1,6 +1,7 @@
 package com.vuhtang.lab2.controllers;
 
 import com.vuhtang.lab2.repository.DataManagerImpl;
+import com.vuhtang.lab2.repository.SqlManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 @WebServlet(name = "ControllerServlet", urlPatterns = "/controller")
@@ -16,7 +18,11 @@ public class ControllerServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        getServletContext().setAttribute("dataManager", new DataManagerImpl());
+        try {
+            getServletContext().setAttribute("dataManager", new SqlManager());
+        } catch (SQLException | ClassNotFoundException ex) {
+            getServletContext().setAttribute("dataManager", new DataManagerImpl());
+        }
     }
 
     @Override

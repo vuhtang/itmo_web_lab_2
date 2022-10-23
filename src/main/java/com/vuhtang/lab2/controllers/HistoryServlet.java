@@ -1,6 +1,6 @@
 package com.vuhtang.lab2.controllers;
 
-import com.vuhtang.lab2.repository.DataManagerImpl;
+import com.vuhtang.lab2.repository.DataManager;
 import com.vuhtang.lab2.utils.JSONTransformer;
 import com.vuhtang.lab2.utils.Transformer;
 import jakarta.servlet.ServletException;
@@ -25,7 +25,7 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Object maybeManager = getServletContext().getAttribute("dataManager");
-        if (maybeManager instanceof DataManagerImpl manager) {
+        if (maybeManager instanceof DataManager manager) {
 
             String responseHTML = transformer.transform(manager.getAll());
 

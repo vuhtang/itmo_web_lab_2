@@ -7,13 +7,14 @@ export function clearCanvas() {
         DOMElements.canvas.width, DOMElements.canvas.height)
 }
 
-export function drawCircle(x, y, strResp) {
+export function drawCircle(x, y, r, strResp) {
     const canvas = DOMElements.canvas
     let R = canvas.width / 3
-    let r = DOMElements.currentRHidden.value
-    if (isNaN(x) || isNaN(y)) {
+
+    if (isNaN(x) || isNaN(y) || isNaN(r)) {
         x = Number(x.replace(',', '.'))
         y = Number(y.replace(',', '.'))
+        r = Number(r.replace(',', '.'))
     }
     let X = Number(x) * R / r
     let Y = Number(y) * R / r
@@ -48,7 +49,7 @@ export function listenUserClicks() {
         let x = X * r / R
         let y = Y * r / R
 
-        api.fetchShot(x, y, r, drawCircle)
+        api.fetchShot(x, y, r)
     })
 }
 

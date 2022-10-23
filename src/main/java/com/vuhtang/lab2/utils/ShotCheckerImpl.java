@@ -1,5 +1,7 @@
 package com.vuhtang.lab2.utils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class ShotCheckerImpl implements ShotChecker {
@@ -8,7 +10,7 @@ public class ShotCheckerImpl implements ShotChecker {
         long start = System.nanoTime();
         String RESULT = check(x, y, r) ? "HIT" : "MISS";
         Long EXEC_TIME = System.nanoTime() - start;
-        Date CURR_TIME = new Date();
+        LocalDateTime CURR_TIME = LocalDateTime.now();
         return new Shot(x, y, r, CURR_TIME, EXEC_TIME, RESULT);
     }
 

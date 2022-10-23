@@ -3,11 +3,12 @@ package com.vuhtang.lab2.repository;
 import com.vuhtang.lab2.utils.Shot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DataManagerImpl implements DataManager {
-    private final List<Shot> collection = new LinkedList<>();
+    private final List<Shot> collection = Collections.synchronizedList(new LinkedList<>());
 
     @Override
     public void add(Shot shot) {

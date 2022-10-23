@@ -2,10 +2,11 @@ import {DOMElements} from "../utils/const/DOMElements.js";
 import {BASE_URL} from "../resources/routes.js";
 import {jsonToHtmlTableRows} from "./json-to-html.js";
 import {drawShotsFromJson} from "./visual/graphic.js";
+import {drawCircle} from "./visual/canvas.js";
 
 export const api = {
 
-    fetchShot: function (x, y, r, callback) {
+    fetchShot: function (x, y, r) {
         let table = DOMElements.table
         let url = new URL(BASE_URL)
         url.searchParams.set('x', x)
@@ -18,9 +19,7 @@ export const api = {
         ).then(resp => resp.text())
             .then(strResp => {
                 table.insertAdjacentHTML('afterbegin', jsonToHtmlTableRows(strResp))
-                if (callback) {
-                    callback(x, y, strResp)
-                }
+                drawShotsFromJson(strResp)
             })
             .catch(reason => console.log("error :(( " + reason))
     },
